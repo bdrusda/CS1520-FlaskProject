@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+
+<html lang = 'en'>
+	<head>
+	<meta charset='utf-8'>
+
+	<title>Signup Page</title>
+
+	</head>
+
+	<body>
+		<h3>Catering Signup</h3>
+
+		<form action='/handle_signup/' method='POST'>
+			
+			<label>Username</label>
+			<input type="username" placeholder="Enter Username" name="username" required>
+			
+			<br>
+			
+			<label>Password</label>
+			<input type="password" placeholder="Enter Password" name = "password" required>
+			
+			<br>
+			
+			<button type="submit">Signup</button>
+		
+			<br>
+
+			{% if error %}
+				<h5>We already have an event scheduled for that day! Please try a different day</h5>
+			{% endif %}
+		</form>
+
+	</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html> 
+	<head>
+		<title>Main Page</title>
+	</head>
+
+	<body>
+		
+		<h3>Login User: {{username}}<h3>
+
+		<br>
+
+		{% block content %}
+			{% if permissions == 'owner' %}
+		
+				{% if all_events|count == 0 %}
+								
+					<h5>No Events Are Scheduled</h5>
+
+				{% else %}
+					<h3>All Scheduled Events</h3>
+					<ol>
+					{% for items in all_events %}
+				
+						{% if items.staff == None and items.staff2 == None and items.staff3 == None%}
+							<li>Creator: {{ items.creator }} Staff: NO STAFF SIGNED UP Date: {{items.Date}} </li>
+
+						{% else %}
+							<li>Creator: {{ items.creator }} Staff: {{ items.staff }} Staff2: {{ items.staff2}} Staff3: {{items.staff3}} Date: {{items.Date}} </li>
+							<br>
+	
+						{% endif %} 
+
+					{% endfor %}
+					</ol>
+	
+				{% endif %}
+
+				<form method='GET' action='/staff_signup/'> 
+
+					<input type="submit" value = 'Add Staff'/> 			
+
+				</form>
+
+			{% endif %}
+
+
+			{% if permissions == 'staff' %}
+				
+				<h3>Events You're Signed Up To Work</h3> 
+				
+				{% for events in query %}
+
+					<li>Event: {{events.Date}}</li>
+					
+				{% endfor %}
+
+				<h3>Events You Can Sign Up For</h3>
+				
+				{% for events in not_full %} 
+					
+					<ol>
+											
+					<form method='Post' action='/add_staff/'>
+
+						<li>Event Date: {{events.Date}} <input type="submit" name = "add_staff" value="Work: {{events.Date}}" /></li>
+						<input type="hidden" name="username" value="{{username}}"/>
+					</form>
+
+					</ol>
+				{% endfor %}
+			{% endif %} 
+
+
+			{% if permissions == 'std' %} 
+			
+				<h3>Events You've Scheduled</h3>
+				
+				<ol>
+				{% for values in events %}	
+				
+				<form method = 'POST' action = '/delete_event/'>			
+					<li>Event Date: {{values.Date}} <input type="submit" name = 'delete_event' value="Delete: {{values.Date}}"/></li>
+					<input type="hidden" name="username" value="{{username}}"/>
+				</form>
+						
+				{% endfor %}	
+				</ol>
+
+				<form method = 'GET' action = '/go_to_event/'>
+					<input type = 'submit' value = 'Add Event'/>
+					<br>
+				</form>		
+
+			{% endif %} 
+
+
+		{% endblock content %}
+
+		<form method='GET' action='/'>
+			<input type='submit' value='Logout' /> 
+		</form>
+
+	</body>
+
+
+</html>
+

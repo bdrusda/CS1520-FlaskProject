@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+	<head> 
+	<meta charset = 'utf-8'>
+
+	<title>Add Event</title>
+
+	</head>
+
+	<body> 
+
+		<h2>Create an Event</h2>
+
+		<form action = "/add_event/">
+			<label>Username</label>
+			<input type="text" placeholder="What is your Username?" name="creator" required>
+
+			<br> 
+			
+			<label>Password</label>
+			<input type="password" placeholder="What is your Password?" name="password" required>
+
+			<br>
+
+			<label>Date</label>
+			<input type="datetime-local" name="date" required>
+
+			<button type='submit'>Submit Event</button> 
+			
+		</form> 
+
+		{% if error %}
+			<h5>We already have an event scheduled for that day! Please try a different day</h5>
+		{% endif %}
+
+
+
+
+	</body>
+</html>
