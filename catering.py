@@ -91,9 +91,9 @@ def handle_login():
         q3 = Events.query.filter_by(staff3 = username).all()
 
         query = q1 + q2 + q3
-
-        not_full = Events.query.all()
     
+        not_full = Events.query.all()
+        
         for values in not_full: 
             if values.staff == username or values.staff2 == username or values.staff3 == username:
                 not_full.remove(values)
@@ -130,7 +130,7 @@ def handle_staff_signup():
     
     db.session.add(user)
     db.session.commit()
-    
+       
     all_events = Events.query.all()
 
     return render_template(
@@ -222,6 +222,7 @@ def add_staff_events():
     
     value = event_date[6:]
     data = make_date(value)
+
     event = Events.query.filter_by(Date=data).first()
 
     if event.staff == None and event.staff != username: 
@@ -244,7 +245,7 @@ def add_staff_events():
     
     query = e1 + e2 + e3
 
-    not_full = Events.query.all() 
+    not_full = Events.query.all()
 
     for values in query: 
         if values in not_full:
