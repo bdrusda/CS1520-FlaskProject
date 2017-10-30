@@ -57,7 +57,7 @@ def handle_login():
     m = hashlib.md5(password1.encode('utf-8')).hexdigest()
     crypt_pass = str(m)
 
-    value = User.query.filter_by(id=str(crypt_pass)).first()
+    value = User.query.filter_by(id=str(crypt_pass) , user=username).first()
 
     permissions = value.permissions
 
@@ -169,7 +169,7 @@ def handle_add_event():
     m = hashlib.md5(password.encode('utf-8')).hexdigest()
     crypt_pass = str(m)
     
-    value = User.query.filter_by(id=str(crypt_pass)).first()
+    value = User.query.filter_by(id=str(crypt_pass) , user=username).first()
 
     event = Events(creator=username, Date=final_date)
     
