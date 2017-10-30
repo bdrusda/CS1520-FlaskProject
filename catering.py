@@ -68,6 +68,10 @@ def handle_login():
         
         all_events = Events.query.all()
         
+        for events in all_events:
+            if datetime.now() > events.Date:
+                all_events.remove(events)
+
         return render_template(
             'login.html',
             username=username,
@@ -77,6 +81,10 @@ def handle_login():
     elif permissions == 'std':
         
         events = Events.query.filter_by(creator=username).all()
+
+        for values in events: 
+            if datetime.now() > values.Date:
+                events.remove(values)
 
         return render_template(
             'login.html',
@@ -91,7 +99,11 @@ def handle_login():
         q3 = Events.query.filter_by(staff3 = username).all()
 
         query = q1 + q2 + q3
-    
+        
+        for events in query:
+            if datetime.now() > events.Date:
+                query.remove(events)
+
         not_full = Events.query.all()
         
         for values in not_full: 
@@ -101,7 +113,10 @@ def handle_login():
         for events in not_full: 
             if events.staff != None and events.staff2 != None and events.staff3 != None: 
                 not_full.remove(events)
-
+        
+        for events in not_full:
+            if datetime.now() > events.Date:
+                not_full.remove(events)
 
         return render_template(
                 'login.html',
@@ -133,6 +148,10 @@ def handle_staff_signup():
        
     all_events = Events.query.all()
 
+    for events in all_events:
+        if datetime.now() > events.Date:
+            all_events.remove(events)
+
     return render_template(
             'login.html',
             username='owner',
@@ -162,6 +181,11 @@ def handle_add_event():
         error = True
 
     events = Events.query.filter_by(creator=username).all()
+
+    for values in events:
+        if datetime.now() > values.Date:
+            events.remove(values)
+
 
     if value == None or error == True: 
         return render_template('create_event.html' , error=True)
@@ -208,6 +232,12 @@ def delete_event():
     
     events = Events.query.filter_by(creator=username).all()
 
+    for data in events:
+        if datetime.now() > data.Date:
+            events.remove(data)
+
+
+
     return render_template(
             'login.html',
             username=username,
@@ -245,6 +275,10 @@ def add_staff_events():
     
     query = e1 + e2 + e3
 
+    for values in query:
+        if datetime.now() > values.Date:
+            query.remove(values)
+
     not_full = Events.query.all()
 
     for values in query: 
@@ -254,6 +288,11 @@ def add_staff_events():
     for events in not_full: 
         if events.staff != None and events.staff2 != None and events.staff3 != None: 
             not_full.remove(events)
+
+    for events in not_full:
+            if datetime.now() > events.Date:
+                not_full.remove(events)
+
 
     return render_template(
         'login.html',
