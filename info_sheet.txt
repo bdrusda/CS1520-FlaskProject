@@ -1,0 +1,5 @@
+Name: Christopher Wood
+Date: 10/29/2017
+Assignment: Assignment 3
+
+Info: I haven't found an issue with this. Login and everything works correctly as well as date tracking. 
